@@ -1,319 +1,4 @@
-{% load static %}
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Learn how to use the Firebase platform on the Web">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Friendly Chat</title>
-
-  <!-- Disable tap highlight on IE -->
-  <meta name="msapplication-tap-highlight" content="no">
-
-  <!-- Web Application Manifest -->
-  <!--<link rel="manifest" href="{% static 'manifest.json' %}">-->
-
-  <!-- Add to homescreen for Chrome on Android -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="Friendly Chat">
-  <meta name="theme-color" content="#303F9F">
-
-  <!-- Add to homescreen for Safari on iOS -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Friendly Chat">
-  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
-
-  <!-- Tile icon for Win8 -->
-  <meta name="msapplication-TileColor" content="#3372DF">
-  <meta name="msapplication-navbutton-color" content="#303F9F">
-
-  <!-- Material Design Lite -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
-  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-
-  <!-- App Styling -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-  <!--<link rel="stylesheet" href="{% static 'main.css' %}">-->
-
-    <style>
-        /**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-html, body {
-  font-family: 'Roboto', 'Helvetica', sans-serif;
-}
-main, #messages-card {
-  height: 100%;
-  padding-bottom: 0;
-}
-#messages-card-container {
-  height: calc(100% - 150px);
-  padding-bottom: 0;
-}
-#messages-card {
-  margin-top: 15px;
-}
-.mdl-layout__header-row span {
-  margin-left: 15px;
-  margin-top: 17px;
-}
-.mdl-grid {
-  max-width: 1024px;
-  margin: auto;
-}
-.material-icons {
-  font-size: 36px;
-  top: 8px;
-  position: relative;
-}
-.mdl-layout__header-row {
-  padding: 0;
-  margin: 0 auto;
-}
-.mdl-card__supporting-text {
-  width: auto;
-  height: 100%;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-#messages {
-  overflow-y: auto;
-  margin-bottom: 10px;
-  height: calc(100% - 80px);
-}
-#message-filler {
-  flex-grow: 1;
-}
-.message-container:first-of-type {
-  border-top-width: 0;
-}
-.message-container {
-  display: block;
-  margin-top: 10px;
-  border-top: 1px solid #f3f3f3;
-  padding-top: 10px;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-.message-container.visible {
-  opacity: 1;
-}
-.message-container .pic {
-  background-image: url('/images/profile_placeholder.png');
-  background-repeat: no-repeat;
-  width: 30px;
-  height: 30px;
-  background-size: 30px;
-  border-radius: 20px;
-}
-.message-container .spacing {
-  display: table-cell;
-  vertical-align: top;
-}
-.message-container .message {
-  display: table-cell;
-  width: calc(100% - 40px);
-  padding: 5px 0 5px 10px;
-}
-.message-container .name {
-  display: inline-block;
-  width: 100%;
-  padding-left: 40px;
-  color: #bbb;
-  font-style: italic;
-  font-size: 12px;
-  box-sizing: border-box;
-}
-#message-form {
-  display: flex;
-  flex-direction: row;
-  width: calc(100% - 48px);
-  float: left;
-}
-#image-form {
-  display: flex;
-  flex-direction: row;
-  width: 48px;
-  float: right;
-}
-#message-form .mdl-textfield {
-  width: calc(100% - 100px);
-}
-#message-form button, #image-form button {
-  width: 100px;
-  margin: 15px 0 0 10px;
-}
-.mdl-card {
-  min-height: 0;
-}
-.mdl-card {
-  background: linear-gradient(white, #f9f9f9);
-  justify-content: space-between;
-}
-#user-container {
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  top: 22px;
-  width: 100%;
-  right: 0;
-  padding-left: 10px;
-  justify-content: flex-end;
-  padding-right: 10px;
-}
-#user-container #user-pic {
-  top: -3px;
-  position: relative;
-  display: inline-block;
-  background-image: url('/images/profile_placeholder.png');
-  background-repeat: no-repeat;
-  width: 40px;
-  height: 40px;
-  background-size: 40px;
-  border-radius: 20px;
-}
-#user-container #user-name {
-  font-size: 16px;
-  line-height: 36px;
-  padding-right: 10px;
-  padding-left: 20px;
-}
-#image-form #submitImage {
-  width: auto;
-  padding: 0 6px 0 1px;
-  min-width: 0;
-}
-#image-form #submitImage .material-icons {
-  top: -1px;
-}
-.message img {
-  max-width: 300px;
-  max-height: 200px;
-}
-#mediaCapture {
-  display: none;
-}
-@media screen and (max-width: 610px) {
-  header {
-    height: 113px;
-    padding-bottom: 80px !important;
-  }
-  #user-container {
-    top: 72px;
-    background-color: rgb(3,155,229);
-    height: 38px;
-    padding-top: 3px;
-    padding-right: 2px;
-  }
-  #user-container #user-pic {
-    top: 2px;
-    width: 33px;
-    height: 33px;
-    background-size: 33px;
-  }
-}
-.mdl-textfield__label:after {
-  background-color: #0288D1;
-}
-.mdl-textfield--floating-label.is-focused .mdl-textfield__label {
-  color: #0288D1;
-}
-.mdl-button .material-icons {
-  top: -1px;
-  margin-right: 5px;
-}
-
-    </style>
-
-</head>
-<body>
-
-<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-  <!-- Header section containing logo -->
-  <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-      <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <h3><i class="material-icons">chat_bubble_outline</i> Friendly Chat</h3>
-      </div>
-      <div id="user-container">
-        <div hidden id="user-pic"></div>
-        <div hidden id="user-name"></div>
-        <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-          Sign-out
-        </button>
-        <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-          <i class="material-icons">account_circle</i>Sign-in with Google
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main class="mdl-layout__content mdl-color--grey-100">
-    <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
-
-      <!-- Messages container -->
-      <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
-        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-          <div id="messages">
-            <span id="message-filler"></span>
-          </div>
-          <form id="message-form" action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="message">
-              <label class="mdl-textfield__label" for="message">Message...</label>
-            </div>
-            <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              Send
-            </button>
-          </form>
-          <form id="image-form" action="#">
-            <input id="mediaCapture" type="file" accept="image/*,capture=camera">
-            <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-              <i class="material-icons">image</i>
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
-        <div class="mdl-snackbar__text"></div>
-        <button class="mdl-snackbar__action" type="button"></button>
-      </div>
-
-    </div>
-  </main>
-</div>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDO6fapJRAVsf7x4nmL7-Ol4hLuXC-ZTmo",
-    authDomain: "friendlychat-7333a.firebaseapp.com",
-    databaseURL: "https://friendlychat-7333a.firebaseio.com",
-    projectId: "friendlychat-7333a",
-    storageBucket: "friendlychat-7333a.appspot.com",
-    messagingSenderId: "276143245846"
-  };
-  firebase.initializeApp(config);
-    /**
+/**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -332,7 +17,6 @@ main, #messages-card {
 
 // Initializes FriendlyChat.
 function FriendlyChat() {
-  console.log('FriendlyChat');
   this.checkSetup();
 
   // Shortcuts to DOM Elements.
@@ -370,7 +54,6 @@ function FriendlyChat() {
 
 // Sets up shortcuts to Firebase features and initiate firebase auth.
 FriendlyChat.prototype.initFirebase = function() {
-  console.log('FriendlyChat.prototype.initFirebase');
   // Shortcuts to Firebase SDK features.
   this.auth = firebase.auth();
   this.database = firebase.database();
@@ -381,7 +64,6 @@ FriendlyChat.prototype.initFirebase = function() {
 
 // Loads chat messages history and listens for upcoming ones.
 FriendlyChat.prototype.loadMessages = function() {
-  console.log('FriendlyChat.prototype.loadMessage');
   // Reference to the /messages/ database path.
   this.messagesRef = this.database.ref('messages');
   // Make sure we remove all previous listeners.
@@ -398,7 +80,6 @@ FriendlyChat.prototype.loadMessages = function() {
 
 // Saves a new message on the Firebase DB.
 FriendlyChat.prototype.saveMessage = function(e) {
-  console.log('FriendlyChat.prototype.saveMessage');
   e.preventDefault();
   // Check that the user entered a message and is signed in.
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
@@ -420,7 +101,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
 // Sets the URL of the given img element with the URL of the image stored in Firebase Storage.
 FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
-  console.log('FriendlyChat.prototype.setImageUrl');
   imgElement.src = imageUri;
 
   // If the image is a Firebase Storage URI we fetch the URL.
@@ -437,7 +117,6 @@ FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
 // Saves a new message containing an image URI in Firebase.
 // This first saves the image in Firebase storage.
 FriendlyChat.prototype.saveImageMessage = function(event) {
-  console.log('FriendlyChat.prototype.saveImageMessage');
   var file = event.target.files[0];
 
   // Clear the selection in the file picker input.
@@ -479,7 +158,6 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
 
 // Signs-in Friendly Chat.
 FriendlyChat.prototype.signIn = function() {
-  console.log('FriendlyChat.prototype.signIn');
   // Sign in Firebase using popup auth and Google as the identity provider.
   var provider = new firebase.auth.GoogleAuthProvider();
   this.auth.signInWithPopup(provider);
@@ -487,18 +165,16 @@ FriendlyChat.prototype.signIn = function() {
 
 // Signs-out of Friendly Chat.
 FriendlyChat.prototype.signOut = function() {
-  console.log('FriendlyChat.prototype.signOut');
   //signout Firebase
   this.auth.signOut();
 };
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 FriendlyChat.prototype.onAuthStateChanged = function(user) {
-    console.log('FriendlyChat.prototype.onAuthStateChanged');
-    if (user) { // User is signed in!
+  if (user) { // User is signed in!
     // Get profile pic and user's name from the Firebase user object.
-    var profilePicUrl = user.photoURL;
-    var userName = user.displayName;
+    var profilePicUrl = user.photoURL;   
+    var userName = user.displayName;        
 
     // Set the user's profile pic and name.
     this.userPic.style.backgroundImage = 'url(' + profilePicUrl + ')';
@@ -527,7 +203,6 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
 
 // Returns true if user is signed-in. Otherwise false and displays a message.
 FriendlyChat.prototype.checkSignedInWithMessage = function() {
-  console.log('FriendlyChat.prototype.checkSignedInWithMessage');
   // Return true if the user is signed in Firebase
   if (this.auth.currentUser) {
     return true;
@@ -544,14 +219,12 @@ FriendlyChat.prototype.checkSignedInWithMessage = function() {
 
 // Resets the given MaterialTextField.
 FriendlyChat.resetMaterialTextfield = function(element) {
-  console.log('FriendlyChat.resetMaterialTextField');
   element.value = '';
   element.parentNode.MaterialTextfield.boundUpdateClassesHandler();
 };
 
 // Template for messages.
 FriendlyChat.MESSAGE_TEMPLATE =
-  console.log('FriendlyChat.MESSAGE_TEMPLATE');
     '<div class="message-container">' +
       '<div class="spacing"><div class="pic"></div></div>' +
       '<div class="message"></div>' +
@@ -563,7 +236,6 @@ FriendlyChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 
 // Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
-  console.log('FriendlyChat.prototype.displayMessage');
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
   if (!div) {
@@ -600,7 +272,6 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
 // Enables or disables the submit button depending on the values of the input
 // fields.
 FriendlyChat.prototype.toggleButton = function() {
-  console.log('FriendlyChat.prototype.toggleButton');
   if (this.messageInput.value) {
     this.submitButton.removeAttribute('disabled');
   } else {
@@ -610,7 +281,6 @@ FriendlyChat.prototype.toggleButton = function() {
 
 // Checks that the Firebase SDK has been correctly setup and configured.
 FriendlyChat.prototype.checkSetup = function() {
-  console.log('FriendlyChat.prototype.checkSetup');
   if (!window.firebase || !(firebase.app instanceof Function) || !window.config) {
     window.alert('You have not configured and imported the Firebase SDK. ' +
         'Make sure you go through the codelab setup instructions.');
@@ -627,7 +297,3 @@ FriendlyChat.prototype.checkSetup = function() {
 window.onload = function() {
   window.friendlyChat = new FriendlyChat();
 };
-
-</script>
-</body>
-</html>
