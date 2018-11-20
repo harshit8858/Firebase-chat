@@ -1,11 +1,11 @@
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDO6fapJRAVsf7x4nmL7-Ol4hLuXC-ZTmo",
-    authDomain: "friendlychat-7333a.firebaseapp.com",
-    databaseURL: "https://friendlychat-7333a.firebaseio.com",
-    projectId: "friendlychat-7333a",
-    storageBucket: "friendlychat-7333a.appspot.com",
-    messagingSenderId: "276143245846"
+    apiKey: "####",
+    authDomain: "####",
+    databaseURL: "####",
+    projectId: "####",
+    storageBucket: "####",
+    messagingSenderId: "####"
   };
   firebase.initializeApp(config);
     /**
